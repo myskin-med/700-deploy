@@ -12,8 +12,8 @@ cd go/src/github.com/myskin-med/duale-platform-v1/
 nano .env
 
 # add the following lines:
-FPAA_DEV="188.245.173.14:9999"
-FPAA_PROD="188.245.173.14:9999"
+FPAA_DEV="app.duale.cloud:9999"
+FPAA_PROD="app.duale.cloud:9999"
 ```
 Note: in production, replace ip with app.duale.cloud
 
@@ -37,9 +37,9 @@ deactivate
 
 ## 3-2. Test manual connection:
 ```
-curl -k https://188.245.173.14:9999/ping
+curl -k https://app.duale.cloud:9999/ping
 ```
-Note: in production, replace ip with app.duale.cloud, then avoid the -k flag
+Note: in production, avoid the -k flag
 
 
 
@@ -82,7 +82,7 @@ sudo systemctl status fpaa.service
 ## 6. test fpaa connection:
 
 ```
-curl -k https://188.245.173.14:9999/ping
+curl -k https://app.duale.cloud:9999/ping
 # respose: pong
 ```
 Note: in production, replace ip with app.duale.cloud, then avoid the -k flag
