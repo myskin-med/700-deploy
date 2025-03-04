@@ -18,7 +18,7 @@ FPAA_PROD="188.245.173.14:9999"
 Note: in production, replace ip with app.duale.cloud
 
 
-## 3. fpaa deploy
+## 3-1. fpaa deploy
 ```sh
 cd 
 cd pyprojs
@@ -29,10 +29,14 @@ python3 -m venv .
 source bin/activate
 python -m pip install -r requirements.txt 
 python main.py 
-
 # CTRL-C to stop the server
 deactivate
+```
 
+## 3-2. Set production mode
+```sh
+nano config/__init__.py
+# set PROD_MODE = True
 ```
 
 ## 4. fpaa systemd setup:
@@ -103,6 +107,8 @@ ADD COLUMN mcsa_signed bool default 'f';
 
 ## 8. deploy duale
 ```sh
+cd
+cd go/src/github.com/myskin-med/duale-platform-v1
 git pull origin main
 sudo -E make build
 ```
