@@ -20,11 +20,13 @@ Note: in production, replace ip with app.duale.cloud
 
 ## 3-1. fpaa deploy
 ```sh
+sudo systemctl stop fpaa.service
 cd 
 cd pyprojs
 mv fpaa-pdf-fill/ fpaa-pdf-fill_bckp
 
 git clone git@github.com:myskin-med/fpaa-pdf-fill.git
+cd fpaa-pdf-fill
 python3 -m venv .
 source bin/activate
 python -m pip install -r requirements.txt 
@@ -33,7 +35,15 @@ python main.py
 deactivate
 ```
 
-## 3-2. Set production mode
+## 3-2. Test manual connection:
+```
+curl -k https://188.245.173.14:9999/ping
+```
+Note: in production, replace ip with app.duale.cloud, then avoid the -k flag
+
+
+
+## 3-3. Set production mode
 ```sh
 nano config/__init__.py
 # set PROD_MODE = True
@@ -73,6 +83,7 @@ sudo systemctl status fpaa.service
 
 ```
 curl -k https://188.245.173.14:9999/ping
+# respose: pong
 ```
 Note: in production, replace ip with app.duale.cloud, then avoid the -k flag
 
@@ -102,6 +113,7 @@ ALTER TABLE patients
 ADD COLUMN id_card_2 text;
 ALTER TABLE provisioned_services_onsite
 ADD COLUMN mcsa_signed bool default 'f';
+--^D to exit
 ```
 
 
@@ -111,4 +123,18 @@ cd
 cd go/src/github.com/myskin-med/duale-platform-v1
 git pull origin main
 sudo -E make build
+```
+
+############################# 
+
+############################################
+
+####################################################################
+
+
+### Extra ops on cloned server
+# !!! DO NOT RUN IN PRODUCTION!!!
+```
+# mkdir /mnt/HC_Volume_10227180/assets/uploads/org_docs_renamed_avoid_copy_paste_accidentally
+# mkdir /mnt/HC_Volume_10227180/assets/uploads/decr_buffer_renamed_avoid_copy_paste_accidentally
 ```
