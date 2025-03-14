@@ -113,6 +113,33 @@ ALTER TABLE patients
 ADD COLUMN id_card_2 text;
 ALTER TABLE provisioned_services_onsite
 ADD COLUMN mcsa_signed bool default 'f';
+
+CREATE TABLE fea_journaling (
+id SERIAL PRIMARY KEY,
+fk_patient int REFERENCES patients(id) NOT NULL,
+fk_organization int REFERENCES organizations(id) NOT NULL,
+fpaa text NOT NULL,
+id_card_1 text NOT NULL,
+id_card_2 text,
+full_name text NOT NULL,
+fiscal_code text NOT NULL,
+notes text,
+ts_created timestamp default now(),
+ts_updated timestamp default now()
+);
+
+UPDATE patients                                                
+SET legal_tutor = legal_tutor || ARRAY['','']
+WHERE legal_tutor IS NOT NULL;
+
+ALTER TABLE patients ADD COLUMN mime_fpaa text;
+ALTER TABLE patients ADD COLUMN mime_card_1 text;
+ALTER TABLE patients ADD COLUMN mime_card_2 text;
+
+ALTER TABLE fea_journaling ADD COLUMN mime_fpaa text;
+ALTER TABLE fea_journaling ADD COLUMN mime_card_1 text;
+ALTER TABLE fea_journaling ADD COLUMN  mime_card_2 text;
+
 --^D to exit
 ```
 
